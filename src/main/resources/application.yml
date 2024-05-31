@@ -1,0 +1,40 @@
+server:
+    port: ${SERVER_PORT:8086}
+    compression:
+        enabled: true
+spring:
+    application:
+        name: Spring Kotlin Jooq
+    datasource:
+        url: jdbc:postgresql://${SERVER_IP:localhost}:${POSTGRESQL_PORT:5432}/${POSTGRESQL_DB:boilerplate}?currentSchema=${POSTGRESQL_SCHEMA:public}
+        username: ${POSTGRESQL_USER:postgres}
+        password: ${POSTGRESQL_PASSWORD:senocak}
+    flyway:
+        locations: classpath:migration
+        placeholderReplacement: false
+        sql-migration-prefix: V
+        table: flyway_schema_history
+        enabled: false
+    jackson:
+        serialization:
+            WRITE_DATES_AS_TIMESTAMPS: false
+        deserialization:
+            fail-on-unknown-properties: true
+        time-zone: UTC
+        mapper:
+            sort-properties-alphabetically: false
+logging:
+    level:
+        org:
+            springframework:
+                web: info
+                security: info
+            hibernate:
+                SQL: info
+app:
+    jwtSecret: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
+    jwtExpirationInMs: '#{60 * 50 * 1000}' # 50 minutes in milliseconds
+springdoc:
+    api-docs:
+        path: /api/v1/swagger
+    version: 1

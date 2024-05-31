@@ -1,0 +1,32 @@
+package com.github.senocak.skj.security
+
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.senocak.skj.domain.ExceptionDto
+import com.github.senocak.skj.exception.RestExceptionHandler
+import com.github.senocak.skj.util.logger
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
+import org.slf4j.Logger
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
+import org.springframework.security.core.AuthenticationException
+import org.springframework.security.web.AuthenticationEntryPoint
+import org.springframework.stereotype.Component
+import java.io.IOException
+
+@Component
+class JwtAuthenticationEntryPoint(
+    private val objectMapper: ObjectMapper,
+    private val restExceptionHandler: RestExceptionHandler
+) : AuthenticationEntryPoint {
+    private val log: Logger by logger()
+
+    @Throws(IOException::class)
+    override fun commence(request: HttpServletRequest, response: HttpServletResponse, ex: AuthenticationException) {
+        log.error("Responding with unauthorized error. Message - ${ex.message}")
+        val responseEntity: ResponseEntity<ExceptionDto> = restExceptionHandler.handleUnAuthorized(ex = RuntimeException(ex.message))
+        response.writer.write(objectMapper.writeValueAsString(responseEntity.body))
+        response.status = HttpServletResponse.SC_UNAUTHORIZED
+        response.contentType = MediaType.APPLICATION_JSON_VALUE
+    }
+}

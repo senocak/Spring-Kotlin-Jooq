@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "1e33e8d8-2dab-47bf-8fc6-75190abd0d09",
+		"name": "kotlin spring jooq",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7821151",
+		"_collection_link": "https://lively-comet-8198.postman.co/workspace/An%C4%B1l~d33d46fc-ebc0-4ccb-81ba-caceff009d2d/collection/7821151-1e33e8d8-2dab-47bf-8fc6-75190abd0d09?action=share&source=collection_link&creator=7821151"
+	},
+	"item": [
+		{
+			"name": "login-user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const   response    =   pm.response",
+							"        json        =   response.json()",
+							"pm.test(\"Status code is 200\", function () {",
+							"    response.to.have.status(200)",
+							"    pm.globals.set(\"token\", json.token)",
+							"    pm.globals.set(\"refreshToken\", json.refreshToken)",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer OV6KcNL0OhqKKbkWmE9GCWziDrVzV162dI4HuvqEzUYeFRhuAILiBsWV9BrHP5EknEuF5D0dZAN0zLCKs5fSTemowPyWhCOjbYUeqWmsuwhRthIooTgmyCnYQXMmUKecci9ObZ2UdUuSnTFeI0L2PuyUIIRnmlY6jZjM2esjeuX1RmAjxgeoMQinRVow8tCCSc1qhrRQtpNp5sRHJ0yVbrWfIzYJ8dkGxlei3niBugAYXgxCXTAmqggsWL3Ieha8",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"anil2@senocak.com\",\n    \"password\": \"stanford.Pollich14\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login-admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const   response    =   pm.response",
+							"        json        =   response.json()",
+							"pm.test(\"Status code is 200\", function () {",
+							"    response.to.have.status(200)",
+							"    pm.globals.set(\"token\", json.token)",
+							"    pm.globals.set(\"refreshToken\", json.refreshToken)",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer OV6KcNL0OhqKKbkWmE9GCWziDrVzV162dI4HuvqEzUYeFRhuAILiBsWV9BrHP5EknEuF5D0dZAN0zLCKs5fSTemowPyWhCOjbYUeqWmsuwhRthIooTgmyCnYQXMmUKecci9ObZ2UdUuSnTFeI0L2PuyUIIRnmlY6jZjM2esjeuX1RmAjxgeoMQinRVow8tCCSc1qhrRQtpNp5sRHJ0yVbrWfIzYJ8dkGxlei3niBugAYXgxCXTAmqggsWL3Ieha8",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"anil1@senocak.com\",\n    \"password\": \"louie.Stehr1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "me",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v1/user/me",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "me",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{$randomFullName}}\",\n    \"password\": \"stanford.Pollich14\",\n    \"password_confirmation\": \"stanford.Pollich14\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/user/me",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/v1/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "Luci",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "@senocak.com",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:8080",
+			"type": "default"
+		},
+		{
+			"key": "randomInteger",
+			"value": ""
+		},
+		{
+			"key": "randomTopicName",
+			"value": ""
+		},
+		{
+			"key": "firstTopicName",
+			"value": ""
+		},
+		{
+			"key": "partitionsSize",
+			"value": ""
+		}
+	]
+}
